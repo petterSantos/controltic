@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Create Perfil</h2>
+
+    <form action="/perfil/create/" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button>
+            Save
+        </button>
+    </form>
+
+{% endblock %}
