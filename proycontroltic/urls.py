@@ -24,4 +24,5 @@ urlpatterns = [
     path('',views.home, name='home'),
     path('perfil/create/',views.create_perfil,name='create_perfil'),
     path('perfil/',views.perfiles,name='perfiles'),
+    path('perfil/<int:perfil_id>/', views.perfil_detail, name='perfil_detail'),
 ]

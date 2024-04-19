@@ -9,17 +9,21 @@
                 <table class="table table-bordered border-primary">
                     <thead>
                         <tr>
-                          <th scope="col">Perfil</th>
+                          <th scope="col" style="text-align: left;width:80%" >Perfil</th>
+                          <th scope="col" style="text-align: right">Acción</th>
                         </tr>
                       </thead>
                       <tbody>
                         {% for perfil in perfiles %}
                         <tr>
                                 {% if not perfil.activo %}
-                                    <td class="table-danger"><a href= "{% url 'home'  %}" style='color: black'>{{perfil.perfil}}</a></td>
+                                    <td class="table-danger">{{perfil.perfil}}</td>
+                                    <td  class="table-danger"><a href=  "{% url 'perfil_detail' perfil.id %}" style='color: black'>Editar</a></td>
                                 {% else %}   
-                                    <td><a href= "{% url 'home'  %}" style='color: black'>{{perfil.perfil}}</a></td>
+                                    <td>{{perfil.perfil}}</td>
+                                    <td><a href= "{% url 'perfil_detail' perfil.id %}" style='color: black'>Editar</a></td>
                                 {% endif %}
+                                   
                         </tr>
                         {% endfor %}
                       </tbody>
