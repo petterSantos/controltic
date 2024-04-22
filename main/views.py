@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.db import IntegrityError
 from django.utils import timezone
-from .forms import PerfilForm
-from .models import Perfil
+from .forms import PerfilForm, OficinaForm, AreaForm
+from .models import Perfil, Oficina, Area
 
 # Create your views here.
 def home(request):
@@ -15,9 +15,9 @@ def perfiles(request):
         'perfiles':perfiles
     })
 
-def create_perfil(request):
+def perfil_create(request):
     if request.method == 'GET':
-        return render(request,'create_perfil.html',{
+        return render(request,'perfil_create.html',{
         'form' : PerfilForm
         })
     else:
@@ -27,7 +27,7 @@ def create_perfil(request):
             new_perfil.save()
             return redirect('perfiles')
         except ValueError:
-            return render(request, 'create_perfil.html',{
+            return render(request, 'perfil_create.html',{
                 'form' :PerfilForm,
                 'error': 'Ingresar todos los datos requeridos'
             })
@@ -45,4 +45,95 @@ def perfil_detail(request, perfil_id):
         return redirect('perfiles')
        except ValueError:
         return render(request,'perfil_detail.html', {'perfil' : perfil, 'form' : form, 'error' : "Error Updating perfil"})
+
+def perfil_delete(request, perfil_id):
+     perfil = get_object_or_404 (Perfil, pk=perfil_id)
+     if request.method == 'POST':
+         perfil.delete()
+         return redirect('perfiles')
+
+def oficinas(request):
+    oficinas = Oficina.objects.all()
+    return render(request, 'oficinas.html',{
+        'oficinas': oficinas
+    })
+
+def oficina_create(request):
+    if request.method == 'GET':
+        return render(request,'oficina_create.html',{
+        'form' : OficinaForm
+        })
+    else:
+        try:
+            form = OficinaForm(request.POST)
+            new_oficina = form.save(commit=False)
+            new_oficina.save()
+            return redirect('oficinas')
+        except ValueError:
+            return render(request, 'oficina_create.html',{
+                'form' :OficinaForm,
+                'error': 'Ingresar todos los datos requeridos'
+            })
         
+def oficina_detail(request, oficina_id):
+    if request.method == 'GET':
+        oficina = get_object_or_404 (Oficina, pk=oficina_id)
+        form = OficinaForm(instance=oficina)
+        return render(request,'oficina_detail.html', {'oficina' : oficina, 'form' : form})
+    else:
+       try:
+        oficina = get_object_or_404 (Oficina, pk=oficina_id)
+        form = OficinaForm(request.POST, instance=oficina)
+        form.save()
+        return redirect('oficinas')
+       except ValueError:
+        return render(request,'oficina_detail.html', {'oficina' : oficina, 'form' : form, 'error' : "Error Updating oficina"})
+       
+def oficina_delete(request, oficina_id):
+     oficina = get_object_or_404 (Oficina, pk=oficina_id)
+     if request.method == 'POST':
+         oficina.delete()
+         return redirect('oficinas')
+     
+def areas(request):
+    areas = Area.objects.all()
+    return render(request, 'areas.html',{
+        'areas': areas
+    })
+
+def area_create(request):
+    if request.method == 'GET':
+        return render(request,'area_create.html',{
+        'form' : AreaForm
+        })
+    else:
+        try:
+            form = AreaForm(request.POST)
+            new_area = form.save(commit=False)
+            new_area.save()
+            return redirect('areas')
+        except ValueError:
+            return render(request, 'area_create.html',{
+                'form' :AreaForm,
+                'error': 'Ingresar todos los datos requeridos'
+            })
+        
+def area_detail(request, area_id):
+    if request.method == 'GET':
+        area = get_object_or_404 (Area, pk=area_id)
+        form = AreaForm(instance=area)
+        return render(request,'area_detail.html', {'area' : area, 'form' : form})
+    else:
+       try:
+        area = get_object_or_404 (Area, pk=area_id)
+        form = AreaForm(request.POST, instance=area)
+        form.save()
+        return redirect('areas')
+       except ValueError:
+        return render(request,'area_detail.html', {'area' : area, 'form' : form, 'error' : "Error Updating area"})
+       
+def area_delete(request, area_id):
+     area = get_object_or_404 (Area, pk=area_id)
+     if request.method == 'POST':
+         area.delete()
+         return redirect('areas')

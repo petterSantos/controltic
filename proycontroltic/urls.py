@@ -22,7 +22,16 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home, name='home'),
-    path('perfil/create/',views.create_perfil,name='create_perfil'),
+    path('perfil/create/',views.perfil_create,name='perfil_create'),
     path('perfil/',views.perfiles,name='perfiles'),
     path('perfil/<int:perfil_id>/', views.perfil_detail, name='perfil_detail'),
+    path('perfil/<int:perfil_id>/delete', views.perfil_delete, name='perfil_delete'),
+    path('oficina/',views.oficinas,name='oficinas'),
+    path('oficina/create/',views.oficina_create,name='oficina_create'),
+    path('oficina/<int:oficina_id>/', views.oficina_detail, name='oficina_detail'),
+    path('oficina/<int:oficina_id>/delete', views.oficina_delete, name='oficina_delete'),
+    path('area/',views.areas,name='areas'),
+    path('area/create/',views.area_create,name='area_create'),
+    path('area/<int:area_id>/', views.area_detail, name='area_detail'),
+    path('area/<int:area_id>/delete', views.area_delete, name='area_delete'),
 ]

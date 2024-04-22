@@ -4,27 +4,27 @@
         <main class=".container">
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 offset-md-4">
-                <h1 class="text-center display-3 py-5">Perfiles</h1>
+                <h1 class="text-center display-3 py-5">Areas TIC</h1>
                 <div>
                     <button class="btn btn-primary mb-3">
-                        <a href="{% url 'perfil_create' %}" style='color: white'>Add+</a></button>
+                        <a href="{% url 'area_create' %}" style='color: white'>Add+</a></button>
                 </div>
                 <table class="table table-bordered border-primary">
                     <thead>
                         <tr>
-                          <th scope="col" style="text-align: left;width:80%" >Perfil</th>
+                          <th scope="col" style="text-align: left;width:80%" >Area</th>
                           <th scope="col" style="text-align: right">Acción</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {% for perfil in perfiles %}
+                        {% for area in areas %}
                         <tr>
-                                {% if not perfil.activo %}
-                                    <td class="table-danger">{{perfil.perfil}}</td>
-                                    <td  class="table-danger"><a href=  "{% url 'perfil_detail' perfil.id %}" style='color: black'>Editar</a></td>
+                                {% if not area.activo %}
+                                    <td class="table-danger">{{area.area}}</td>
+                                    <td  class="table-danger"><a href=  "{% url 'area_detail' area.id %}" style='color: black'>Editar</a></td>
                                 {% else %}   
-                                    <td>{{perfil.perfil}}</td>
-                                    <td><a href= "{% url 'perfil_detail' perfil.id %}" style='color: black'>Editar</a></td>
+                                    <td>{{area.area}}</td>
+                                    <td><a href= "{% url 'area_detail' area.id %}" style='color: black'>Editar</a></td>
                                 {% endif %}
                                    
                         </tr>

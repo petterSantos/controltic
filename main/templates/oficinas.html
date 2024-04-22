@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <main class=".container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 offset-md-4">
+                <h1 class="text-center display-3 py-5">Oficinas</h1>
+                <div>
+                    <button class="btn btn-primary mb-3">
+                        <a href="{% url 'oficina_create' %}" style='color: white'>Add+</a></button>
+                </div>
+
+                <table class="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                          <th scope="col" style="text-align: left;width:80%" >Oficina</th>
+                          <th scope="col" style="text-align: left;width:80%" >Abrev.</th>
+                          <th scope="col" style="text-align: right">Acción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for oficina in oficinas %}
+                        <tr>
+                                {% if not oficina.activo %}
+                                    <td class="table-danger">{{oficina.oficina}}</td>
+                                    <td class="table-danger">{{oficina.abrev}}</td>
+                                    <td  class="table-danger"><a href=  "{% url 'oficina_detail' oficina.id %}" style='color: black'>Editar</a></td>
+                                {% else %}   
+                                    <td>{{oficina.oficina}}</td>
+                                    <td>{{oficina.abrev}}</td>
+                                    <td><a href= "{% url 'oficina_detail' oficina.id %}" style='color: black'>Editar</a></td>
+                                {% endif %}
+                                   
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}
