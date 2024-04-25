@@ -22,6 +22,7 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home, name='home'),
+    path('signup/', views.signup,name='signup'),
     path('perfil/create/',views.perfil_create,name='perfil_create'),
     path('perfil/',views.perfiles,name='perfiles'),
     path('perfil/<int:perfil_id>/', views.perfil_detail, name='perfil_detail'),

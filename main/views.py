@@ -1,13 +1,42 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
+#from django.contrib.auth.models import User
+from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.utils import timezone
-from .forms import PerfilForm, OficinaForm, AreaForm
+from .forms import PerfilForm, OficinaForm, AreaForm, FormularioRegistroUsuarioPersonalizado
 from .models import Perfil, Oficina, Area
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 # Create your views here.
 def home(request):
     return render(request,'home.html')
+
+def signup(request):
+    if request.method == 'GET' :
+       return render(request,'signup.html',{
+             'form': FormularioRegistroUsuarioPersonalizado
+       })
+    else:
+        print(request.POST)
+        """ if request.POST['password1'] == request.POST['password2'] :
+           try:
+                user = User.objects.create_user(username = request.POST['username'], password = request.POST['password1'])
+                user.save()
+                login(request,user)
+                return redirect('tasks')
+               ## return HttpResponse('User Created Successify')
+           except IntegrityError:
+               return render(request, 'signup.html',{
+                   'form' : UserCreationForm,
+                   'error': 'Username already exists'
+               })
+               
+        return render(request, 'signup.html',{
+                   'form' : UserCreationForm,
+                   'error': 'Password do no match'
+               }) """
 
 def perfiles(request):
     perfiles = Perfil.objects.all()

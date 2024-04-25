@@ -1,6 +1,11 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
+class UsuarioPersonalizado(AbstractUser):
+    # Tus propiedades personalizadas
+    paterno = models.CharField(max_length=30)
+    
 class Perfil(models.Model):
     perfil = models.CharField(max_length=100)
     activo = models.BooleanField(default=True)
