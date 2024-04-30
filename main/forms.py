@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Oficina, Area
+from .models import Oficina, Area, Configure
 
 """ class PerfilForm(ModelForm):    
     class Meta:
@@ -15,3 +15,7 @@ class AreaForm(ModelForm):
     class Meta:
         model = Area
         fields = ['area','activo']
+class ConfigureForm(ModelForm):    
+    class Meta:
+        model = Configure
+        fields = ['key','value']

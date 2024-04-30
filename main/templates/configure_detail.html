@@ -3,7 +3,7 @@
    <main class="container">
      <div class="row">
        <div class="col-md-4 offset-md-4">
-        <h1 class="text-secondary">Update Perfil</h1>
+        <h1 class="text-secondary">Update Configure</h1>
 
         {{error}}
        
@@ -16,12 +16,12 @@
           </form>
 
             <div class="d-flex justify-content-between mt-2">  
-                <form action="{% url 'perfil_delete' perfil.id %}"" method="POST">
-                  {% csrf_token %}
-                  <button class="btn btn-danger">
-                      Delete
-                  </button>
-                </form> 
+              <form action="{% url 'configure_delete' configure.id %}"" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-danger">
+                    Delete
+                </button>
+              </form>
             </div>
        </div>
      </div>

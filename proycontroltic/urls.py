@@ -35,4 +35,8 @@ urlpatterns = [
     path('area/create/',views.area_create,name='area_create'),
     path('area/<int:area_id>/', views.area_detail, name='area_detail'),
     path('area/<int:area_id>/delete', views.area_delete, name='area_delete'),
+    path('configure/',views.configure,name='configure'),
+    path('configure/create/',views.configure_create,name='configure_create'),
+    path('configure/<int:configure_id>/', views.configure_detail, name='configure_detail'),
+    path('configure/<int:configure_id>/delete', views.configure_delete, name='configure_delete'),
 ]

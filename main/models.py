@@ -7,7 +7,7 @@ class Perfil(models.Model):
     perfil = models.CharField(max_length=100)
     nroCelular = models.CharField(max_length=12, default='000000000')
     def __str__(self):
-        return self.perfil
+        return self.perfil+' - '+self.user.username
 
 class Oficina(models.Model):
     oficina = models.CharField(max_length=200)
@@ -21,3 +21,9 @@ class Area(models.Model):
     activo = models.BooleanField(default=True)
     def __str__(self):
         return self.area
+
+class Configure(models.Model):
+    key = models.CharField(max_length=50)
+    value = models.CharField(max_length=500)
+    def __str__(self):
+        return self.key

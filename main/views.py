@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.utils import timezone
-from .forms import OficinaForm, AreaForm
-from .models import Perfil, Oficina, Area
+from .forms import OficinaForm, AreaForm, ConfigureForm
+from .models import Perfil, Oficina, Area, Configure
 
 # Create your views here.
 def home(request):
@@ -22,11 +22,14 @@ def signup(request):
                 user = User.objects.create_user(username = request.POST['username'], password = request.POST['password1'],
                                                 first_name = request.POST['first_name'], last_name = request.POST['last_name'],
                                                 email = request.POST['email'], is_staff = True, is_active = True)
+                print(user)
                 user.save()
+                print(user)
                 login(request,user)
-                user = User.objects.last()
+                #user = User.objects.last()
                 perfil = Perfil.objects.create(user=user,perfil = request.POST['perfil'],nroCelular = request.POST['nroCelular'])
                 perfil.save()
+                print(perfil)
                 return redirect('home')
                ## return HttpResponse('User Created Successify')
            except IntegrityError:
@@ -39,49 +42,6 @@ def signup(request):
                    'form' : UserCreationForm,
                    'error': 'Password do no match'
                }) 
-
-def perfiles(request):
-    perfiles = Perfil.objects.all()
-    return render(request, 'perfiles.html',{
-        'perfiles':perfiles
-    })
-
-def perfil_create(request):
-    if request.method == 'GET':
-        return render(request,'perfil_create.html',{
-        'form' : PerfilForm
-        })
-    else:
-        try:
-            form = PerfilForm(request.POST)
-            new_perfil = form.save(commit=False)
-            new_perfil.save()
-            return redirect('perfiles')
-        except ValueError:
-            return render(request, 'perfil_create.html',{
-                'form' :PerfilForm,
-                'error': 'Ingresar todos los datos requeridos'
-            })
-        
-def perfil_detail(request, perfil_id):
-    if request.method == 'GET':
-        perfil = get_object_or_404 (Perfil, pk=perfil_id)
-        form = PerfilForm(instance=perfil)
-        return render(request,'perfil_detail.html', {'perfil' : perfil, 'form' : form})
-    else:
-       try:
-        perfil = get_object_or_404 (Perfil, pk=perfil_id)
-        form = PerfilForm(request.POST, instance=perfil)
-        form.save()
-        return redirect('perfiles')
-       except ValueError:
-        return render(request,'perfil_detail.html', {'perfil' : perfil, 'form' : form, 'error' : "Error Updating perfil"})
-
-def perfil_delete(request, perfil_id):
-     perfil = get_object_or_404 (Perfil, pk=perfil_id)
-     if request.method == 'POST':
-         perfil.delete()
-         return redirect('perfiles')
 
 def oficinas(request):
     oficinas = Oficina.objects.all()
@@ -168,3 +128,46 @@ def area_delete(request, area_id):
      if request.method == 'POST':
          area.delete()
          return redirect('areas')
+     
+def configure(request):
+    configures = Configure.objects.all()
+    return render(request, 'configure.html',{
+        'configures': configures
+    })
+
+def configure_create(request):
+    if request.method == 'GET':
+        return render(request,'configure_create.html',{
+        'form' : ConfigureForm
+        })
+    else:
+        try:
+            form = ConfigureForm(request.POST)
+            new_configure = form.save(commit=False)
+            new_configure.save()
+            return redirect('configure')
+        except ValueError:
+            return render(request, 'configure_create.html',{
+                'form' :ConfigureForm,
+                'error': 'Ingresar todos los datos requeridos'
+            })
+        
+def configure_detail(request, configure_id):
+    if request.method == 'GET':
+        configure = get_object_or_404 (Configure, pk=configure_id)
+        form = ConfigureForm(instance=configure)
+        return render(request,'configure_detail.html', {'configure' : configure, 'form' : form})
+    else:
+       try:
+        configure = get_object_or_404 (Configure, pk=configure_id)
+        form =ConfigureForm(request.POST, instance=configure)
+        form.save()
+        return redirect('configure')
+       except ValueError:
+        return render(request,'configure_detail.html', {'area' : configure, 'form' : form, 'error' : "Error Updating configure"})
+       
+def configure_delete(request, configure_id):
+     configure = get_object_or_404 (Configure, pk=configure_id)
+     if request.method == 'POST':
+         configure.delete()
+         return redirect('configure')
