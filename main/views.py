@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.utils import timezone
 from .forms import OficinaForm, AreaForm, ConfigureForm
-from .models import Perfil, Oficina, Area, Configure
+from .models import Perfil, Oficina, Area, Configure, TipoEquipo
 
 # Create your views here.
 def home(request):
@@ -171,3 +171,9 @@ def configure_delete(request, configure_id):
      if request.method == 'POST':
          configure.delete()
          return redirect('configure')
+     
+def tipoEquipo(request):
+    tiposEquipos = TipoEquipo.objects.all()
+    return render(request, 'tipoEquipo.html',{
+        'tiposEquipos': tiposEquipos
+    })
