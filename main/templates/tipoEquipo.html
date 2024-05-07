@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <main class=".container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 offset-md-4">
+                <h1 class="text-center display-3 py-5">Tipo de Equipo</h1>
+                <div>
+                    <button class="btn btn-primary mb-3">
+                        <a href="{% url 'configure_create' %}" style='color: white'>Add+</a></button>
+                </div>
+                <table class="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                          <th scope="col" style="text-align: left;width:30%" >Key</th>
+                          <th scope="col" style="text-align: right">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for configure in configures %}
+                        <tr>
+                               <td>{{configure.key}}</td>
+                               <td><a href= "{% url 'configure_detail' configure.id %}" style='color: black'>{{configure.value}}</a></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}

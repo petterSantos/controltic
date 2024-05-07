@@ -19,3 +19,8 @@ class ConfigureForm(ModelForm):
     class Meta:
         model = Configure
         fields = ['key','value']
+
+class TipoEquipoForm(ModelForm):    
+    class Meta:
+        model = Configure
+        fields = ['tipo','descripcion','activo']

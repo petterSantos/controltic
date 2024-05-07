@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.utils import timezone
-from .forms import OficinaForm, AreaForm, ConfigureForm
+from .forms import OficinaForm, AreaForm, ConfigureForm,TipoEquipoForm
 from .models import Perfil, Oficina, Area, Configure, TipoEquipo
 
 # Create your views here.
@@ -164,7 +164,7 @@ def configure_detail(request, configure_id):
         form.save()
         return redirect('configure')
        except ValueError:
-        return render(request,'configure_detail.html', {'area' : configure, 'form' : form, 'error' : "Error Updating configure"})
+        return render(request,'configure_detail.html', {'configure' : configure, 'form' : form, 'error' : "Error Updating configure"})
        
 def configure_delete(request, configure_id):
      configure = get_object_or_404 (Configure, pk=configure_id)
@@ -177,3 +177,40 @@ def tipoEquipo(request):
     return render(request, 'tipoEquipo.html',{
         'tiposEquipos': tiposEquipos
     })
+
+def tipoEquipo_create(request):
+    if request.method == 'GET':
+        return render(request,'tipoEquipo_create.html',{
+        'form' : TipoEquipoForm
+        })
+    else:
+        try:
+            form = TipoEquipoForm(request.POST)
+            new_tipoEquipo = form.save(commit=False)
+            new_tipoEquipo.save()
+            return redirect('tipoEquipo')
+        except ValueError:
+            return render(request, 'tipoEquipo_create.html',{
+                'form' :TipoEquipoForm,
+                'error': 'Ingresar todos los datos requeridos'
+            })
+        
+def tipoEquipo_detail(request, tipoEquipo_id):
+    if request.method == 'GET':
+        tipoEquipo = get_object_or_404 (TipoEquipo, pk=tipoEquipo_id)
+        form = TipoEquipoForm(instance=tipoEquipo)
+        return render(request,'tipoEquipo_detail.html', {'tipoEquipo' : tipoEquipo, 'form' : form})
+    else:
+       try:
+        tipoEquipo = get_object_or_404 (TipoEquipo, pk=tipoEquipo_id)
+        form =ConfigureForm(request.POST, instance=tipoEquipo)
+        form.save()
+        return redirect('tipoEquipo')
+       except ValueError:
+        return render(request,'tipoEquipo_detail.html', {'tipoEquipo' : tipoEquipo, 'form' : form, 'error' : "Error Updating configure"})
+
+def tipoEquipo_delete(request, tipoEquipo_id):
+     tipoEquipo = get_object_or_404 (TipoEquipo, pk=tipoEquipo_id)
+     if request.method == 'POST':
+         tipoEquipo.delete()
+         return redirect('tipoEquipo')
