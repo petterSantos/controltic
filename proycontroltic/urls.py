@@ -39,4 +39,8 @@ urlpatterns = [
     path('configure/create/',views.configure_create,name='configure_create'),
     path('configure/<int:configure_id>/', views.configure_detail, name='configure_detail'),
     path('configure/<int:configure_id>/delete', views.configure_delete, name='configure_delete'),
+    path('tipoEquipo/',views.tipoEquipo,name='tipoEquipo'),
+    path('tipoEquipo/create/',views.tipoEquipo_create,name='tipoEquipo_create'),
+    path('tipoEquipo/<int:tipoEquipo_id>/', views.tipoEquipo_detail, name='tipoEquipo_detail'),
+    path('tipoEquipo/<int:tipoEquipo_id>/delete', views.tipoEquipo_delete, name='tipoEquipo_delete'),
 ]

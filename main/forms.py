@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Oficina, Area, Configure
+from .models import Oficina, Area, Configure,TipoEquipo
 
 """ class PerfilForm(ModelForm):    
     class Meta:
@@ -22,5 +22,5 @@ class ConfigureForm(ModelForm):
 
 class TipoEquipoForm(ModelForm):    
     class Meta:
-        model = Configure
+        model = TipoEquipo
         fields = ['tipo','descripcion','activo']

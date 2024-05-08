@@ -203,7 +203,7 @@ def tipoEquipo_detail(request, tipoEquipo_id):
     else:
        try:
         tipoEquipo = get_object_or_404 (TipoEquipo, pk=tipoEquipo_id)
-        form =ConfigureForm(request.POST, instance=tipoEquipo)
+        form =TipoEquipoForm(request.POST, instance=tipoEquipo)
         form.save()
         return redirect('tipoEquipo')
        except ValueError:
