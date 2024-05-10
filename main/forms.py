@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Oficina, Area, Configure,TipoEquipo
+from .models import Oficina, Area, Configure,TipoEquipo, Equipo
 
 """ class PerfilForm(ModelForm):    
     class Meta:
@@ -24,3 +24,10 @@ class TipoEquipoForm(ModelForm):
     class Meta:
         model = TipoEquipo
         fields = ['tipo','descripcion','activo']
+
+
+class EquipoForm(ModelForm):    
+    class Meta:
+        model = Equipo
+        fields = [ 'marca','modelo','codPatrimonial','descripcionEquipo','descripcionCompra','estadoPatrimonio','responsablePatri',
+                    'oficinaPatri','fechaUpdate','tipoEquipo','esPatrimonizado']

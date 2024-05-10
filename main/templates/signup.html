@@ -3,49 +3,14 @@
 {% block content %}
   <main class="container">
      <div class="row">
-        <div class="col-md-4 offset-md-4 mt-5">
+        <div class="col-md-5 offset-md-4 mt-5">
             <form action="/signup/" method="post" class="card card-body">
                 <h1 class="text-center">Signup</h1>
                 {{error}}
                 {%csrf_token%}
-
+                
                 <div class="mb-3">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Write your username">
-                </div>
-
-                <div class="mb-3">
-                    <label for="password1">Password:</label>
-                    <input type="password" id="password1" name="password1" class="form-control" placeholder="Write your password">
-                </div>
-
-                <div class="mb-3">
-                    <label for="password2">Confirm your Password:</label>
-                    <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm your password">
-                </div>
-
-                <div class="mb-3">
-                    <label for="password2">Confirm Apellidos:</label>
-                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Confirm your Apellidos">
-                </div>
-
-                <div class="mb-3">
-                    <label for="password2">Confirm Nombres:</label>
-                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Confirm your Nombres">
-                </div>
-
-                <div class="mb-3">
-                    <label for="password2">Confirm Email:</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Confirm your email">
-                </div>
-
-                <div class="mb-3">
-                    <label for="password2">Confirm Celular:</label>
-                    <input type="text" id="nroCelular" name="nroCelular" class="form-control" placeholder="Confirm your celular">
-                </div>
-
-                <div class="mb-3">
-                    <select class="form-select form-select-sm mb-3" aria-label="Large select example"
+                    <select class="form-select form-select-sm" aria-label="Large select example"
                      id="perfil" name="perfil">
                         <option selected>Seleccionar perfil</option>
                         <option value="workerTIC">WorkerTIC</option>
@@ -55,7 +20,56 @@
                       </select>
                 </div>
 
-                <!-- {{form}} -->
+                <div class="mb-3">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Escribir username">
+                </div>
+
+                <div class="row">
+                   <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="password1">Password:</label>
+                        <input type="password" id="password1" name="password1" class="form-control" placeholder="Escribir tu password">
+                    </div> 
+                   </div>
+               
+                   <div class="col-md-6">
+                    <div class="mb-3">
+                            <label for="password2">Confirmar Password:</label>
+                            <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirmar tu password">
+                        </div> 
+                    </div> 
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                       <div class="mb-3">
+                        <label for="password2">Apellidos:</label>
+                        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Escribir Apellidos">
+                       </div> 
+                    </div>
+                    <div class="col-md-6">
+                       <div class="mb-3">
+                        <label for="password2">Nombres:</label>
+                        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Escribir Nombres">
+                       </div> 
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="password2">Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Escribir email">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="password2">Celular:</label>
+                            <input type="text" id="nroCelular" name="nroCelular" class="form-control" placeholder="Escribir celular">
+                        </div>
+                    </div>
+                </div>
             <button class="btn btn-primary"> Signup</button>
             </form>
         </div>

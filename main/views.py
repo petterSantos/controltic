@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.utils import timezone
-from .forms import OficinaForm, AreaForm, ConfigureForm,TipoEquipoForm
-from .models import Perfil, Oficina, Area, Configure, TipoEquipo
+from .forms import OficinaForm, AreaForm, ConfigureForm,TipoEquipoForm, EquipoForm
+from .models import Perfil, Oficina, Area, Configure, TipoEquipo, Equipo
 
 # Create your views here.
 def home(request):
@@ -214,3 +214,46 @@ def tipoEquipo_delete(request, tipoEquipo_id):
      if request.method == 'POST':
          tipoEquipo.delete()
          return redirect('tipoEquipo')
+
+def equipos(request):
+    equipos = Equipo.objects.all()
+    return render(request, 'Equipo.html',{
+        'equipos': equipos
+    })
+
+def equipo_create(request):
+    if request.method == 'GET':
+        return render(request,'equipo_create.html',{
+        'form' : EquipoForm
+        })
+    else:
+        try:
+            form = EquipoForm(request.POST)
+            new_equipo = form.save(commit=False)
+            new_equipo.save()
+            return redirect('equipos')
+        except ValueError:
+            return render(request, 'equipo_create.html',{
+                'form' :EquipoForm,
+                'error': 'Ingresar todos los datos requeridos'
+            })
+
+def equipo_detail(request, equipo_id):
+    if request.method == 'GET':
+        equipo = get_object_or_404 (Equipo, pk=equipo_id)
+        form = EquipoForm(instance=equipo)
+        return render(request,'equipo_detail.html', {'equipo' : equipo, 'form' : form})
+    else:
+       try:
+        equipo = get_object_or_404 (Equipo, pk=equipo_id)
+        form =EquipoForm(request.POST, instance=equipo)
+        form.save()
+        return redirect('equipos')
+       except ValueError:
+        return render(request,'equipo_detail.html', {'equipo' : equipo, 'form' : form, 'error' : "Error Updating equipo"})
+
+def equipo_delete(request, equipo_id):
+     equipo = get_object_or_404 (Equipo, pk=equipo_id)
+     if request.method == 'POST':
+         equipo.delete()
+         return redirect('equipos')

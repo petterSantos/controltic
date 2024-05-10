@@ -46,8 +46,9 @@ class Equipo(models.Model):
     oficinaPatri = models.CharField(max_length=100)
     fechaUpdate = models.DateTimeField(null=True)
     tipoEquipo = models.ForeignKey(TipoEquipo,on_delete=models.CASCADE)
+    esPatrimonizado = models.BooleanField(default=False)
     def __str__(self):
-        return self.tipo
+        return self.marca+' - '+self.modelo+' by '+self.responsablePatri
 
 class Incidencia(models.Model):
     solicita = models.CharField(max_length=100)
