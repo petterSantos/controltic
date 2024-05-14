@@ -7,15 +7,15 @@
                 <h1 class="text-center display-3 py-5">Oficinas</h1>
                 <div>
                     <button class="btn btn-primary mb-3">
-                        <a href="{% url 'oficina_create' %}" style='color: white'>Add+</a></button>
+                        <a href="{% url 'oficina_create' %}" style='color: white'>Agregar+</a></button>
                 </div>
 
                 <table class="table table-bordered border-primary">
                     <thead>
                         <tr>
-                          <th scope="col" style="text-align: left;width:80%" >Oficina</th>
-                          <th scope="col" style="text-align: left;width:80%" >Abrev.</th>
-                          <th scope="col" style="text-align: right"> <img src="{% static 'image/edit01.svg' %}" alt="Kiwi standing on oval">Acción</th>
+                          <th scope="col" style="text-align: left;width:60%" >Oficina</th>
+                          <th scope="col" style="text-align: left;width:20%" >Abrev.</th>
+                          <th scope="col" style="text-align: left;width:20%"">Acción</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -24,11 +24,16 @@
                                 {% if not oficina.activo %}
                                     <td class="table-danger">{{oficina.oficina}}</td>
                                     <td class="table-danger">{{oficina.abrev}}</td>
-                                    <td  class="table-danger"><a href=  "{% url 'oficina_detail' oficina.id %}" style='color: black'>Editar</a></td>
+                                    {% load static %}
+                                    <td  class="table-danger">                                        
+                                        <a href=  "{% url 'oficina_detail' oficina.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar oficina" width="25" height="25"></a>
+                                        <a href=  "{% url 'oficina_delete' oficina.id %}" style='color: black'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar oficina" width="25" height="25"></a></td>
                                 {% else %}   
                                     <td>{{oficina.oficina}}</td>
                                     <td>{{oficina.abrev}}</td>
-                                    <td><a href= "{% url 'oficina_detail' oficina.id %}" style='color: black'>Editar</a></td>
+                                    {% load static %}
+                                    <td><a href= "{% url 'oficina_detail' oficina.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar oficina"  width="25" height="25"></a>
+                                        <a href=  "{% url 'oficina_delete' oficina.id %}" style='color: black'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar oficina" width="25" height="25"></a></td>
                                 {% endif %}
                                    
                         </tr>

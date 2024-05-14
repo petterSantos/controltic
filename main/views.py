@@ -82,9 +82,9 @@ def oficina_detail(request, oficina_id):
        
 def oficina_delete(request, oficina_id):
      oficina = get_object_or_404 (Oficina, pk=oficina_id)
-     if request.method == 'POST':
-         oficina.delete()
-         return redirect('oficinas')
+     #if request.method == 'POST':
+     oficina.delete()
+     return redirect('oficinas')
      
 def areas(request):
     areas = Area.objects.all()
