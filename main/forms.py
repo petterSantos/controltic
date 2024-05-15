@@ -11,8 +11,8 @@ class OficinaForm(forms.ModelForm):
         model = Oficina
         fields = ['oficina','abrev','activo']
         widgets ={
-                'oficina': forms.TextInput(attrs={'class':'form-control', 'placeholder':'write a Oficina'}),
-                'abrev':  forms.TextInput(attrs={'class':'form-control', 'placeholder':'write a Abreviatura'}),
+                'oficina': forms.TextInput(attrs={'class':'form-control', 'placeholder':'escribir una Oficina'}),
+                'abrev':  forms.TextInput(attrs={'class':'form-control', 'placeholder':'escribir su Abreviatura'}),
                 'activo': forms.CheckboxInput(attrs={'class':'form-check-input m-auto mt-2'})
         } 
 
