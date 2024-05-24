@@ -9,6 +9,10 @@
             {{error}}
             {% csrf_token %}
             {{form}}
+            <div>
+                <label for="id_activo" class="mt-1">Activos:</label>
+                <input type="checkbox" name="activo" class="form-check-input m-auto mt-2" id="id_activo" checked>
+            </div>
             <button class="btn btn-primary mt-3">
                 Save
             </button>

@@ -2,46 +2,98 @@
 {% block content %}
 
         <main class=".container">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 offset-md-4">
+            <div class="row mb-2">
                 <h1 class="text-center display-3 py-4">Oficinas</h1>
-                <div>
-                    <button class="btn btn-primary mb-3">
-                        <a href="{% url 'oficina_create' %}" style='color: white'>Agregar+</a></button>
-                </div>
+               <div class="col-md-3 offset-md-3">
+                
+                  <button type="button" class="btn btn-primary">
+                      activos:  <span class="badge text-bg-light">{{oficina_activos}}</span>
+                  </button>
+        
+                  <button type="button" class="btn btn-success">
+                    desactivados:  <span class="badge text-bg-light">{{oficina_Noactivos}}</span>
+                  </button>
+                  
+               </div>
+               <div class="col-md-3 offset-md-1">
+                  <button type="button" class="btn btn-warning">
+                    Total Oficinas:  <span class="badge text-bg-light">{{total_oficinas}}</span>
+                  </button>
+               </div>
+            </div>
 
-                <table class="table table-bordered table-striped table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                          <th scope="col" style="text-align: left;width:60%" >Oficina</th>
-                          <th scope="col" style="text-align: left;width:20%" >Abrev.</th>
-                          <th scope="col" style="text-align: left;width:20%"">Acción</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for oficina in oficinas %}
-                        <tr>
-                                {% if not oficina.activo %}
-                                    <td class="table-danger">{{oficina.oficina}}</td>
-                                    <td class="table-danger">{{oficina.abrev}}</td>
-                                    {% load static %}
-                                    <td  class="table-danger">                                        
-                                        <a href=  "{% url 'oficina_detail' oficina.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar oficina" width="25" height="25"></a>
-                                        <a href=  "{% url 'oficina_delete' oficina.id %}" style='color: black'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar oficina" width="25" height="25"></a></td>
-                                {% else %}   
-                                    <td>{{oficina.oficina}}</td>
-                                    <td>{{oficina.abrev}}</td>
-                                    {% load static %}
-                                    <td><a href= "{% url 'oficina_detail' oficina.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar oficina"  width="25" height="25"></a>
-                                        <a href=  "{% url 'oficina_delete' oficina.id %}" style='color: black'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar oficina" width="25" height="25"></a></td>
-                                {% endif %}
-                                   
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                </table>
+        <div class="row ">
+            <div class="col-md-5 offset-md-3 ">
+                <div class="card card-body">
+                    <div>
+                        <button class="btn btn-dark mb-3">
+                            <a href="{% url 'oficina_create' %}" style='color: white'>Agregar+</a></button>
+                    </div>
 
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                            <th scope="col" style="text-align: left;width:60%" >Oficina</th>
+                            <th scope="col" style="text-align: left;width:20%" >Abrev.</th>
+                            <th scope="col" style="text-align: left;width:20%"">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for oficina in oficinas %}
+                            <tr>
+                                    {% if not oficina.activo %}
+                                        <td class="table-danger">{{oficina.oficina}}</td>
+                                        <td class="table-danger">{{oficina.abrev}}</td>
+                                        {% load static %}
+                                        <td  class="table-danger text-center">                                        
+                                            <a href=  "{% url 'oficina_detail' oficina.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar oficina" width="25" height="25"></a>
+                                            <a href=  "{% url 'oficina_delete' oficina.id %}" style='color: black'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar oficina" width="25" height="25"></a></td>
+                                    {% else %}   
+                                        <td>{{oficina.oficina}}</td>
+                                        <td>{{oficina.abrev}}</td>
+                                        {% load static %}
+                                        <td class="text-center"><a href= "{% url 'oficina_detail' oficina.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar oficina"  width="25" height="25"></a>
+                                            <a onclick="preguntarEliminacion()" style='color: black'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar oficina" width="25" height="25"></a></td>
+                                    {% endif %}
+                                    
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+              </div>
             </div>
         </div>
     </main>
+
+    <script>
+        function preguntarEliminacion(){
+            Swal.fire({
+                title: "Esta Seguro??",
+                text: "Esta seguro de eliminar este registro??",
+                icon: "confirm",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, eliminarlo!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    // var pagina=  "{% url 'oficina_delete' oficina.id %}"
+                    // location.href=pagina
+                    Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                    });
+                }
+            });
+        }
+        function preguntarEliminacion2(){
+           Swal.fire({
+            title: 'Error!',
+            text: 'Prueba',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+           });  
+        }
+    </script>
 {% endblock %}

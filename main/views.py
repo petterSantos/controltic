@@ -45,8 +45,14 @@ def signup(request):
 
 def oficinas(request):
     oficinas = Oficina.objects.all()
+    oficina_activos = Oficina.objects.filter(activo=True).count()
+    oficina_Noactivos = Oficina.objects.filter(activo=False).count()
+    total_oficinas =  oficina_activos+oficina_Noactivos
     return render(request, 'oficinas.html',{
-        'oficinas': oficinas
+        'oficinas': oficinas,
+        'oficina_activos': oficina_activos,
+        'oficina_Noactivos': oficina_Noactivos,
+        'total_oficinas': total_oficinas
     })
 
 def oficina_create(request):

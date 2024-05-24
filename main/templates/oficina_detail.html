@@ -3,26 +3,20 @@
    <main class="container">
      <div class="row">
        <div class="col-md-4 offset-md-4">
-        <h1 class="text-secondary">Update Oficina</h1>
-
-        {{error}}
-       
-          <form method="POST">
+        <h1 class="text-secondary text-center mt-2">Editar Oficina</h1>
+    
+          <form method="POST" class="card card-body">
             {% csrf_token %}
+            {{error}}
             {{form.as_p}}
+            <div class="mb-1">
+              <label for="id_activo" class="mt-1">Activos:</label>
+              <input type="checkbox" name="activo" class="form-check-input m-auto mt-2" id="id_activo" checked>
+           </div>
             <button class="btn btn-primary">
                 Update
             </button>
           </form>
-
-            <div class="d-flex justify-content-between mt-2">  
-              <form action="{% url 'oficina_delete' oficina.id %}"" method="POST">
-                {% csrf_token %}
-                <button class="btn btn-danger">
-                    Delete
-                </button>
-              </form>
-            </div>
        </div>
      </div>
    </main>
