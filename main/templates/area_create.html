@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
     
-<main>
-    <div class="row">
+<main  class="container">
+    <div class="row  mt-5">
         <div class="col-md-4 offset-md-4">
-           <h2>Create Area TIC</h2> 
-           <form action="/area/create/" method="POST">
+           <form action="/area/create/" method="POST" class="card card-body">
+            <h2  class="text-center">Crear Area TIC</h2> 
+            {{error}}
             {% csrf_token %}
             {{form}}
-            <button>
+            <button class="btn btn-primary mt-3">
                 Save
             </button>
         </form>

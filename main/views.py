@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -91,11 +92,19 @@ def oficina_delete(request, oficina_id):
      #if request.method == 'POST':
      oficina.delete()
      return redirect('oficinas')
+   
      
 def areas(request):
     areas = Area.objects.all()
+    areas_activos = Area.objects.filter(activo=True).count()
+    areas_Noactivos = Area.objects.filter(activo=False).count()
+    total_areas =  areas_activos+areas_Noactivos
     return render(request, 'areas.html',{
-        'areas': areas
+        'areas': areas,
+        'areas_activos': areas_activos,
+        'areas_Noactivos': areas_Noactivos,
+        'total_areas': total_areas
+
     })
 
 def area_create(request):
@@ -131,9 +140,9 @@ def area_detail(request, area_id):
        
 def area_delete(request, area_id):
      area = get_object_or_404 (Area, pk=area_id)
-     if request.method == 'POST':
-         area.delete()
-         return redirect('areas')
+     #if request.method == 'POST':
+     area.delete()
+     return redirect('areas')
      
 def configure(request):
     configures = Configure.objects.all()
@@ -180,8 +189,14 @@ def configure_delete(request, configure_id):
      
 def tipoEquipo(request):
     tiposEquipos = TipoEquipo.objects.all()
+    tipoEquipo_activos = TipoEquipo.objects.filter(activo=True).count()
+    tipoEquipo_Noactivos = TipoEquipo.objects.filter(activo=False).count()
+    total_tipoEquipo =  tipoEquipo_activos+tipoEquipo_Noactivos
     return render(request, 'tipoEquipo.html',{
-        'tiposEquipos': tiposEquipos
+        'tiposEquipos': tiposEquipos,
+        'tipoEquipo_activos': tipoEquipo_activos,
+        'tipoEquipo_Noactivos': tipoEquipo_Noactivos,
+        'total_tipoEquipo': total_tipoEquipo
     })
 
 def tipoEquipo_create(request):
@@ -217,9 +232,8 @@ def tipoEquipo_detail(request, tipoEquipo_id):
 
 def tipoEquipo_delete(request, tipoEquipo_id):
      tipoEquipo = get_object_or_404 (TipoEquipo, pk=tipoEquipo_id)
-     if request.method == 'POST':
-         tipoEquipo.delete()
-         return redirect('tipoEquipo')
+     tipoEquipo.delete()
+     return redirect('tipoEquipo')
 
 def equipos(request):
     equipos = Equipo.objects.all()

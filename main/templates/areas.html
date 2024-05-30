@@ -1,37 +1,64 @@
 {% extends 'base.html' %}
 {% block content %}
 
-        <main class=".container">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 offset-md-4">
-                <h1 class="text-center display-3 py-5">Areas TIC</h1>
-                <div>
-                    <button class="btn btn-primary mb-3">
-                        <a href="{% url 'area_create' %}" style='color: white'>Add+</a></button>
-                </div>
-                <table class="table table-bordered border-primary">
-                    <thead>
-                        <tr>
-                          <th scope="col" style="text-align: left;width:80%" >Area</th>
-                          <th scope="col" style="text-align: right">Acción</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for area in areas %}
-                        <tr>
-                                {% if not area.activo %}
-                                    <td class="table-danger">{{area.area}}</td>
-                                    <td  class="table-danger"><a href=  "{% url 'area_detail' area.id %}" style='color: black'>Editar</a></td>
-                                {% else %}   
-                                    <td>{{area.area}}</td>
-                                    <td><a href= "{% url 'area_detail' area.id %}" style='color: black'>Editar</a></td>
-                                {% endif %}
-                                   
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                </table>
+        <main class="container">
+            <div class="row mb-2">
+                <h1 class="text-center display-3 py-4">Areas TIC</h1>
+               <div class="col-md-3 offset-md-3">
+                
+                  <button type="button" class="btn btn-primary">
+                      activos:  <span class="badge text-bg-light">{{areas_activos}}</span>
+                  </button>
+        
+                  <button type="button" class="btn btn-success">
+                    desactivados:  <span class="badge text-bg-light">{{areas_Noactivos}}</span>
+                  </button>
+                  
+               </div>
+               <div class="col-md-3 offset-md-1">
+                  <button type="button" class="btn btn-warning">
+                    Total Areas TIC:  <span class="badge text-bg-light">{{total_areas}}</span>
+                  </button>
+               </div>
+            </div>
 
+        <div class="row">
+            <div class="col-md-5 offset-md-3 ">
+                <div class="card card-body">
+                        <div>
+                            <button class="btn btn-dark mb-3">
+                                <a href="{% url 'area_create' %}" style='color: white'>Agregar+</a></button>
+                        </div>
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="text-align: left;width:70%" >Area</th>
+                                    <th scope="col" style="text-align: left">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for area in areas %}
+                                <tr>
+                                        {% if not area.activo %}
+                                            <td class="table-danger">{{area.area}}</td>
+                                            {% load static %}
+                                            <td  class="table-danger text-center">
+                                                <a href=  "{% url 'area_detail' area.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar area TIC" width="25" height="25"></a>
+                                                <a onclick="preguntarEliminacion('Area TIC','/area/{{area.id}}/delete')" style='color: black;cursor:pointer'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar area TIC" width="25" height="25"></a>
+                                            </td>
+                                        {% else %}   
+                                            <td>{{area.area}}</td>
+                                            <td class="text-center">
+                                                <a href= "{% url 'area_detail' area.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar area TIC" width="25" height="25"></a>
+                                                <a onclick="preguntarEliminacion('Area TIC','/area/{{area.id}}/delete')" style='color: black;cursor:pointer'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar area TIC" width="25" height="25"></a>
+                                            </td>
+                                        {% endif %}
+                                        
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                </div>         
             </div>
         </div>
     </main>

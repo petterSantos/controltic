@@ -1,28 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
    <main class="container">
-     <div class="row">
+     <div class="row mt-5">
        <div class="col-md-4 offset-md-4">
-        <h1 class="text-secondary">Update Tipo Equipo</h1>
-
-        {{error}}
-       
-          <form method="POST">
+          <form method="POST" class=" card card-body">
+            <h2 class="text-secondary text-center">Editar Tipo de Equipo</h2>
+            {{error}}
             {% csrf_token %}
-            {{form.as_p}}
-            <button class="btn btn-primary">
+            {{form}}
+            <button class="btn btn-primary  mt-3">
                 Update
             </button>
           </form>
-
-            <div class="d-flex justify-content-between mt-2">  
-              <form action="{% url 'tipoEquipo_delete' tipoEquipo.id %}"" method="POST">
-                {% csrf_token %}
-                <button class="btn btn-danger">
-                    Delete
-                </button>
-              </form>
-            </div>
        </div>
      </div>
    </main>

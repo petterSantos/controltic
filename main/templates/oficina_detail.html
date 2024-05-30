@@ -1,19 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-   <main class="container">
-     <div class="row">
+   <main  class="container">
+     <div class="row mt-5">
        <div class="col-md-4 offset-md-4">
-        <h1 class="text-secondary text-center mt-2">Editar Oficina</h1>
-    
           <form method="POST" class="card card-body">
+            <h2 class="text-secondary text-center">Editar Oficina</h2>
             {% csrf_token %}
             {{error}}
-            {{form.as_p}}
-            <div class="mb-1">
-              <label for="id_activo" class="mt-1">Activos:</label>
-              <input type="checkbox" name="activo" class="form-check-input m-auto mt-2" id="id_activo" checked>
-           </div>
-            <button class="btn btn-primary">
+            {{form}}
+            <button class="btn btn-primary mt-3">
                 Update
             </button>
           </form>

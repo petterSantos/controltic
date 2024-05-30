@@ -1,40 +1,68 @@
 {% extends 'base.html' %}
 {% block content %}
 
-        <main class=".container">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 offset-md-4">
-                <h1 class="text-center display-3 py-5">Tipos Equipos</h1>
-                <div>
-                    <button class="btn btn-primary mb-3">
-                        <a href="{% url 'tipoEquipo_create' %}" style='color: white'>Add+</a></button>
-                </div>
-                <table class="table table-bordered border-primary">
-                    <thead>
-                        <tr>
-                          <th scope="col" style="text-align: left;width:30%" >Tipo Equipo</th>
-                          <th scope="col" style="text-align: left;width:50%" >Descripción</th>
-                          <th scope="col" style="text-align: right">Acción</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for tipoEquipo in tiposEquipos %}
-                        <tr>
-                                {% if not tipoEquipo.activo %}
-                                    <td class="table-danger">{{tipoEquipo.tipo}}</td>
-                                    <td class="table-danger">{{tipoEquipo.descripcion}}</td>
-                                    <td  class="table-danger"><a href=  "{% url 'tipoEquipo_detail' tipoEquipo.id %}" style='color: black'>Editar</a></td>
-                                {% else %}   
-                                    <td>{{tipoEquipo.tipo}}</td>
-                                    <td>{{tipoEquipo.descripcion}}</td>
-                                    <td><a href= "{% url 'tipoEquipo_detail' tipoEquipo.id %}" style='color: black'>Editar</a></td>
-                                {% endif %}
-                                   
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                </table>
+        <main class="container">
+            <div class="row mb-2">
+                <h1 class="text-center display-3 py-4">Tipos de Equipos</h1>
+               <div class="col-md-3 offset-md-3">
+                
+                  <button type="button" class="btn btn-primary">
+                      activos:  <span class="badge text-bg-light">{{tipoEquipo_activos}}</span>
+                  </button>
+        
+                  <button type="button" class="btn btn-success">
+                    desactivados:  <span class="badge text-bg-light">{{tipoEquipo_Noactivos}}</span>
+                  </button>
+                  
+               </div>
+               <div class="col-md-3 offset-md-1">
+                  <button type="button" class="btn btn-warning">
+                    Total Tipo Equipos:  <span class="badge text-bg-light">{{total_tipoEquipo}}</span>
+                  </button>
+               </div>
+            </div>
 
+        <div class="row">
+            <div class="col-md-5 offset-md-3 ">
+                <div class="card card-body">
+                    <div>
+                        <button class="btn btn-dark mb-3">
+                            <a href="{% url 'tipoEquipo_create' %}" style='color: white'>Agregar+</a></button>
+                    </div>
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                            <th scope="col" style="text-align: left;width:20%" >Tipo Equipo</th>
+                            <th scope="col" style="text-align: left;width:60%" >Descripción</th>
+                            <th scope="col" style="text-align: left;width:20%">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tipoEquipo in tiposEquipos %}
+                            <tr>
+                                    {% if not tipoEquipo.activo %}
+                                        <td class="table-danger">{{tipoEquipo.tipo}}</td>
+                                        <td class="table-danger">{{tipoEquipo.descripcion}}</td>
+                                        {% load static %}
+                                        <td  class="table-danger text-center">
+                                            <a href=  "{% url 'tipoEquipo_detail' tipoEquipo.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar tipo de equipo" width="25" height="25"></a>
+                                            <a onclick="preguntarEliminacion('Tipo de Equipo','/tipoEquipo/{{tipoEquipo.id}}/delete')" style='color: black;cursor:pointer'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar tipo de equipo" width="25" height="25"></a>
+                                        </td>
+                                    {% else %}   
+                                        <td>{{tipoEquipo.tipo}}</td>
+                                        <td>{{tipoEquipo.descripcion}}</td>
+                                        {% load static %}
+                                        <td class="text-center">
+                                            <a href= "{% url 'tipoEquipo_detail' tipoEquipo.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar tipo de equipo" width="25" height="25"></a>
+                                            <a onclick="preguntarEliminacion('Tipo de Equipo','/tipoEquipo/{{tipoEquipo.id}}/delete')" style='color: black;cursor:pointer'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar tipo de equipo" width="25" height="25"></a>
+                                        </td>
+                                    {% endif %}
+                                    
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
