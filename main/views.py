@@ -277,3 +277,6 @@ def equipo_delete(request, equipo_id):
      if request.method == 'POST':
          equipo.delete()
          return redirect('equipos')
+
+def queryEquipo(request):
+    return render(request, 'queryEquipo.html')

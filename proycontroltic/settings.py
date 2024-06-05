@@ -79,7 +79,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'support': {
+        'ENGINE': 'sql_server-pyodbc',
+        'NAME' : 'DB_Patrimonio',
+        'USER': 'sa',
+        'PASSWORD': '$t1c2023@',
+        'HOST': 'SVR_APPS2\SIADEG',
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    },
 }
 # modelo para usuario
 #AUTH_USER_MODEL = 'main.UsuarioPersonalizado'

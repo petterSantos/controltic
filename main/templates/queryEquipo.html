@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+   <main class="container">
+     <div class="row mt-5">
+       <div class="col-md-4 offset-md-4">
+          <form method="POST" class=" card card-body">
+            <h2 class="text-secondary text-center">Consultar Equipo</h2>
+            {{error}}
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="codPatrimonial" class="form-label">Ingrese cod Patrimonial</label>
+                <input type="text" class="form-control" id="codPatrimonial" placeholder="codigo patrimonial" style=" text-transform: uppercase">
+              </div>
+            <button class="btn btn-primary  mt-3">
+                Consultar
+            </button>
+            <div class="mb-3">
+                <label for="result" class="form-label">Repuesta</label>
+                <input type="text" class="form-control" id="result">
+              </div>
+          </form>
+       </div>
+     </div>
+   </main>
+{% endblock %}
