@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'maintenance',
     'main',
+    'equipos',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +93,7 @@ DATABASES = {
         },
     },
 }
+DATABASE_ROUTERS = ['database_routers.equipo_router.EquipoRouter']
 # modelo para usuario
 #AUTH_USER_MODEL = 'main.UsuarioPersonalizado'
 
