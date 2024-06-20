@@ -82,14 +82,14 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     },
     'support': {
-        'ENGINE': 'sql_server-pyodbc',
+        'ENGINE': 'mssql',
         'NAME' : 'DB_Patrimonio',
         'USER': 'sa',
         'PASSWORD': '$t1c2023@',
         'HOST': 'SVR_APPS2\SIADEG',
         'PORT': '',
         'OPTIONS': {
-            'driver': 'ODBC Driver 13 for SQL Server',
+            'driver': 'ODBC Driver 17 for SQL Server',
         },
     },
 }

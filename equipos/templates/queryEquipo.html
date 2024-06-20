@@ -3,22 +3,39 @@
    <main class="container">
      <div class="row mt-5">
        <div class="col-md-4 offset-md-4">
-          <form method="POST" class=" card card-body">
+          <form action="/queryEquipo/" method="POST" class=" card card-body">
             <h2 class="text-secondary text-center">Consultar Equipo</h2>
             {{error}}
             {% csrf_token %}
             <div class="mb-3">
                 <label for="codPatrimonial" class="form-label">Ingrese cod Patrimonial</label>
-                <input type="text" class="form-control" id="codPatrimonial" placeholder="codigo patrimonial" style=" text-transform: uppercase">
+                <input type="text" class="form-control" id="codPatrimonial" name="codPatrimonial" placeholder="codigo patrimonial" style=" text-transform: uppercase">
               </div>
             <button class="btn btn-primary  mt-3">
                 Consultar
             </button>
+          </form>  
+           {% if equipo %}
             <div class="mb-3">
                 <label for="result" class="form-label">Repuesta</label>
-                <input type="text" class="form-control" id="result">
-              </div>
-          </form>
+                
+                  <div>Id: {{equipo.idEquipo}}</div>
+                  <div>Cod Patrimonial: {{equipo.codInterno}}</div>
+                  <div>Marca: {{equipo.marca}}</div>
+                  <div>Modelo: {{equipo.modelo}}</div>
+                  <div>Nro Serie: {{equipo.nroSerie}}</div>
+                  <div>Color: {{equipo.color}}</div>
+                  <div>FechaPecosa: {{equipo.fechaPecosa}}</div>
+                  <div>Estado: {{equipo.estado}}</div>
+                  <div>Observacion: {{equipo.descOtros}}</div>
+                  <div>Tipo Bien: {{tipo.tipoEquipoExt}}</div>
+                  <div>Tipo Doc: {{equipo.tipoDocAdq}}</div>
+                  <div>Nro Doc: {{equipo.docAdq}}</div>
+                  <div>Nro SIAF: {{equipo.siaf}}</div>
+               
+            </div>
+           {% endif %}
+          
        </div>
      </div>
    </main>
