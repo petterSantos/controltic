@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'maintenance',
     'main',
     'equipos',
+    'incidencias',
 ]
 
 MIDDLEWARE = [
