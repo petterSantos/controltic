@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <main class="container">
+     <div class="row">
+        <div class="col-md-7 offset-md-3 mt-5">
+            <form action="/signup/" method="post" class="card card-body">
+                <h1 class="text-center">Incidencia</h1>
+                {{error}}
+                {%csrf_token%}
+
+                  <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item list-group-item-secondary" style="width: 30%;">Ingrese informacion sobre la incidencia a registrar</li>
+                    <li class="list-group-item" style="width: 70%;">
+                      <label for="incSolicFecha"><small class="text-body-secondary">Fecha de la Inciedencia:</small></label>
+                      <input type="date" id="incSolicFecha" name="incSolicFecha"        class="form-control form-control-sm">
+
+                      <label for="incTipo"><small class="text-body-secondary">Seleccionar tipo de incidencia:</small></label>
+                      <select class="form-select form-select-sm" aria-label="Large select example" id="incTipo" name="incTipo">
+                        <option selected>Seleccionar</option>
+                        <option value="IT-NA">Informe Tecnico (nueva adquisicion)</option>
+                        <option value="IT-Int">Informe Tecnico (internamiento)</option>
+                        <option value="MA-RE">Mantenimiento/Reparacion</option>
+                        <option value="DEV">Desarrollo</option>
+                      </select>
+                    </li>
+                  </ul>
+
+                  <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item list-group-item-secondary" style="width: 30%;">Ingresar datos del Solcitante</li>
+                    <li class="list-group-item" style="width: 70%;">
+                      <label for="incSolicitante"><small class="text-body-secondary">Nombres del Solicitante:</small></label>
+                      <select class="form-select form-select-sm" aria-label="Large select   example" id="incSolicitante" name="incSolicitante">
+                            <option selected>Seleccionar...</option>
+                            {% for trabajador in trabajadores %}
+                             <option value= "{{trabajador.id}}">{{trabajador.first_name}} {{trabajador.last_name}}</option>
+                            {% endfor %} 
+                      </select>
+
+                      <label for="incSolicOficina"><small class="text-body-secondary">Oficina del Solicitante:</small></label>
+                      <select class="form-select form-select-sm" aria-label="Large select example" id="incSolicOficina" name="incSolicOficina">
+                          <option selected>Seleccionar...</option>
+                          {% for oficina in oficinas %}
+                           <option value= "{{oficina.id}}">{{oficina.abrev}} - {{oficina.oficina}}</option>
+                          {% endfor %} 
+                      </select>
+                      
+                      <label for="incSolicCargo"><small class="text-body-secondary">Cargo del solicitante:</small></label>
+                      <input type="text" id="incSolicCargo" name="incSolicCargo"        class="form-control form-control-sm">
+                      <p></p>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="incSolicTieneDoc" >
+                        <label class="form-check-label" for="incSolicTieneDoc">¿Ingresó documento?</label>
+                      </div>
+                      <div id="div_incSolicDoc" style="display: none;">
+                        <label for="incSolicDocumento"><small class="text-body-secondary">Ingresar nro. documento:</small></label>
+                        <input type="text" id="incSolicDocumento" name="incSolicDocumento"  class="form-control form-control-sm">
+                        <label for="incSolicDocAsunto"><small class="text-body-secondary">Ingresar asunto del documento:</small></label>
+                        <input type="text" id="incSolicDocAsunto" name="incSolicDocAsunto"  class="form-control form-control-sm">
+                        <p></p>
+                      </div>
+                    </li>
+                  </ul>                  
+
+                  <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item list-group-item-secondary" style="width: 30%;">Ingrese informacion sobre el personal TIC, encargado de la incidencia</li>
+                    <li class="list-group-item" style="width: 70%;">
+                      <label for="incWorkTic"><small class="text-body-secondary">Seleccionar personal TIC:</small></label>
+                      <select class="form-select form-select-sm" aria-label="Large select   example" id="incWorkTic" name="incWorkTic">
+                            <option selected>Seleccionar...</option>
+                            {% for trabajador in trabajadores %}
+                             <option value= "{{trabajador.id}}">{{trabajador.first_name}} {{trabajador.last_name}}</option>
+                            {% endfor %} 
+                      </select>
+
+                      <label for="incWorkTicArea"><small class="text-body-secondary">Area responsable de la incidencia:</small></label>
+                      <select class="form-select form-select-sm" aria-label="Large select example" id="incWorkTicArea" name="incWorkTicArea">
+                          <option selected>Seleccionar...</option>
+                          {% for area in areas %}
+                           <option value= "{{area.id}}">{{area.area}}</option>
+                          {% endfor %} 
+                      </select>
+
+                    </li>
+                  </ul>
+
+                  <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item list-group-item-secondary" style="width: 30%;">Historial de Equipos de Computo</li>
+                    <li class="list-group-item" style="width: 70%;">
+                      <label for="incWorkTic"><small class="text-body-secondary">Seleccionar personal TIC:</small></label>
+                      <select class="form-select form-select-sm" aria-label="Large select   example" id="incWorkTic" name="incWorkTic">
+                            <option selected>Seleccionar...</option>
+                            {% for trabajador in trabajadores %}
+                             <option value= "{{trabajador.id}}">{{trabajador.first_name}} {{trabajador.last_name}}</option>
+                            {% endfor %} 
+                      </select>
+
+                      <label for="incWorkTicArea"><small class="text-body-secondary">Area responsable de la incidencia:</small></label>
+                      <select class="form-select form-select-sm" aria-label="Large select example" id="incWorkTicArea" name="incWorkTicArea">
+                          <option selected>Seleccionar...</option>
+                          {% for area in areas %}
+                           <option value= "{{area.id}}">{{area.area}}</option>
+                          {% endfor %} 
+                      </select>
+
+                    </li>
+                  </ul>
+
+            <button class="btn btn-primary"> Guardar</button>
+            </form>
+        </div>
+     </div>
+  </main>
+{% endblock %}
