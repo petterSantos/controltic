@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.http.response import JsonResponse
 from django.contrib.auth.models import User
-from main.models import Oficina, Area
+from main.models import Oficina, Area, Equipo
 
 # Create your views here.
 def newtask(request):
@@ -11,3 +12,8 @@ def newtask(request):
     contexto = {'trabajadores':trabajadores, 'oficinas' :oficinas, 'areas' : areas}
 
     return render(request,template_name,contexto)
+
+def list_equipos(_request):
+    equipos = list(Equipo.objects.values())
+    data = {'equipos' : equipos}
+    return JsonResponse(data)
