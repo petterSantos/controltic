@@ -41,15 +41,22 @@ function showContent() // OCULTAR O MOSTRAR DIV CON UN CHECKBOX
 ///para cargar equipos y dataTable
 let dataTable;
 let dataTableIsInitialized = false;
-
+const dataTableOptions =  {
+    columnDefs : [
+        { className: "centered",targets: [0,1,2,3,4]},
+        { orderable: false,targets: [1,2]},
+        { searchable: false,targets: [3]}
+    ],
+    pageLength: 4,
+    destroy: true,
+}
 const initDatataTable = async () =>{
     if(dataTableIsInitialized) {
         dataTable.destroy();
     }
-
     await listEquipos();
 
-    dataTable = $('#tableBody_listarEquipos').DataTable({});
+    dataTable = $('#datatable-equipos').DataTable(dataTableOptions);
 
     dataTableIsInitialized = true;
 };
@@ -85,3 +92,9 @@ window.addEventListener("load",async () => {
 
 // const checkboxesTotal = qsa('input[type="checkbox"]').length;
 showContent();
+
+////////////////////////////////////////////////////////////////
+// CARGAR EQUIPO EN CONSULTA
+const buscarEquipo = (url) =>{
+    location.href = url;
+}
