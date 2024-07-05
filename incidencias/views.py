@@ -20,26 +20,10 @@ def list_equipos(_request):
     data = {'equipos' : equipos}
     return JsonResponse(data)
 
-""" def buscar TipoEqupo():
-    try:
-        equipo = list(ModelEquipo.objects.values)
-        data = {'equipo' : equipo}
-        return JsonResponse(data)
-    except """
-
-def buscarEquipo(request):
-    try:
-        equipo = list(ModelEquipo.objects.get(codInterno= request.POST.get('codPatrimonial',None)))
-        data = {'equipo' : equipo}
-        return JsonResponse(data)
-    except ModelEquipo.DoesNotExist:
-        equipo = None
-        #tipoEquipo = None
-        return render(request, 'seleccioneEquipo.html',{
-                'error': 'No se encontro ninguna referencia',
-                'equipo': equipo
-        })
-
+def search_equipo( codPatrimonial_id):
+    equipo = list(ModelEquipo.objects.get(codInterno= codPatrimonial_id))
+    data = {'equipo' : equipo}
+    return JsonResponse(data)
 
 def hello_user(requests):
     context = {

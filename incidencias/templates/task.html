@@ -135,29 +135,19 @@
                      {% endif %}  
                      <div class="mb-3">
                          <label for="codPatrimonial" class="form-label">Ingrese cod Patrimonial</label>
-                         <input type="text" class="form-control" id="codPatrimonial" name="codPatrimonial" placeholder="codigo patrimonial" style=" text-transform: uppercase">
+                         <input type="text" class="form-control" id="inc_codPatrimonial" name="inc_codPatrimonial" placeholder="codigo patrimonial" style=" text-transform: uppercase">
                        </div>
-                     <button class="btn btn-primary  mt-3" onclick="preguntarEliminacion('Area TIC','/area/{{area.id}}/delete')">
+                     <button class="btn btn-primary  mt-3" onclick="buscarEquipo()">
                          Consultar
                      </button>
   
                     {% if equipo %}
                      <div class="mb-3">
                          <label for="result" class="form-label">Repuesta</label>
-                         
-                           <div>Id: {{equipo.idEquipo}}</div>
-                           <div>Cod Patrimonial: {{equipo.codInterno}}</div>
-                           <div>Marca: {{equipo.marca}}</div>
-                           <div>Modelo: {{equipo.modelo}}</div>
-                           <div>Nro Serie: {{equipo.nroSerie}}</div>
-                           <div>Color: {{equipo.color}}</div>
-                           <div>FechaPecosa: {{equipo.fechaPecosa}}</div>
-                           <div>Estado: {{equipo.estado}}</div>
-                           <div>Observacion: {{equipo.descOtros}}</div>
-                           <div>Tipo Bien: {{tipo.tipoEquipoExt}}</div>
-                           <div>Tipo Doc: {{equipo.tipoDocAdq}}</div>
-                           <div>Nro Doc: {{equipo.docAdq}}</div>
-                           <div>Nro SIAF: {{equipo.siaf}}</div>
+                         <div id="inc_equipoEncontrado">
+                          
+                         </div>
+                           
                         
                      </div>
                     {% endif %}
