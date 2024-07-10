@@ -103,21 +103,23 @@ const buscarEquipo = async () =>{
         console.log(data);
 
         let content = ``; 
-        data.equipos.forEach((equipo,index) => {
+        let tipo = data.tipo[0]['tipoEquipoExt']
+      data.equipos.forEach((equipo,index) => {
             content += `
-                           <div>Cod Patrimonial: {{equipo.codInterno}}</div>
-                           <div>Marca: {{equipo.marca}}</div>
-                           <div>Modelo: {{equipo.modelo}}</div>
-                           <div>Nro Serie: {{equipo.nroSerie}}</div>
-                           <div>Color: {{equipo.color}}</div>
-                           <div>FechaPecosa: {{equipo.fechaPecosa}}</div>
-                           <div>Estado: {{equipo.estado}}</div>
-                           <div>Observacion: {{equipo.descOtros}}</div>
-                           <div>Tipo Doc: {{equipo.tipoDocAdq}}</div>
-                           <div>Nro Doc: {{equipo.docAdq}}</div>
-                           <div>Nro SIAF: {{equipo.siaf}}</div>
+                           <div>Cod Patrimonial: ${equipo.codInterno}</div>
+                           <div>Tipo Equipo: ${tipo}</div>
+                           <div>Marca: ${equipo.marca}</div>
+                           <div>Modelo: ${equipo.modelo}</div>
+                           <div>Nro Serie: ${equipo.nroSerie}</div>
+                           <div>Color: ${equipo.color}</div>
+                           <div>FechaPecosa: ${equipo.fechaPecosa}</div>
+                           <div>Estado: ${equipo.estado}</div>
+                           <div>Observacion: ${equipo.descOtros}</div>
+                           <div>Tipo Doc: ${equipo.tipoDocAdq}</div>
+                           <div>Nro Doc: ${equipo.docAdq}</div>
+                           <div>Nro SIAF:${equipo.siaf}</div>
             `
-        });
+      });
         inc_equipoEncontrado.innerHTML = content;
     }catch (ex){
         alert(ex);

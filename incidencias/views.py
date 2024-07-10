@@ -20,9 +20,14 @@ def list_equipos(_request):
     data = {'equipos' : equipos}
     return JsonResponse(data)
 
-def search_equipo( codPatrimonial_id):
-    equipo = list(ModelEquipo.objects.get(codInterno= codPatrimonial_id))
-    data = {'equipo' : equipo}
+def search_equipo(request,codPatrimonial_id):
+    equipos = list(ModelEquipo.objects.filter(codInterno= codPatrimonial_id).values())
+    tipo = list(ModelTipoEquipo.objects.filter(idTipoEquipo= equipos[0]['codTipoBien']).values())
+
+    #tipo = list(ModelTipoEquipo.objects.get(codInterno= codPatrimonial_id).values())
+    data = {'equipos' : equipos,
+            'tipo' : tipo
+            }
     return JsonResponse(data)
 
 def hello_user(requests):
