@@ -49,7 +49,7 @@
                       <input type="text" id="incSolicCargo" name="incSolicCargo"        class="form-control form-control-sm">
                       <p></p>
                       <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="incSolicTieneDoc" >
+                        <input class="form-check-input" type="checkbox" role="switch" id="incSolicTieneDoc">
                         <label class="form-check-label" for="incSolicTieneDoc">¿Ingresó documento?</label>
                       </div>
                       <div id="div_incSolicDoc" style="display: none;">
@@ -127,27 +127,130 @@
             </div>
             <div class="modal-body">
               <div class="row mt-1">
-                <div class="col-md-4 card card-body">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 card card-body">
                      {% if error %}   
                        <div class="alert alert-danger" role="alert">
                          {{error}}
                        </div>
                      {% endif %}  
-                     <div class="mb-3">
-                         <label for="codPatrimonial" class="form-label">Ingrese cod Patrimonial</label>
-                         <input type="text" class="form-control" id="inc_codPatrimonial" name="inc_codPatrimonial" placeholder="codigo patrimonial" style=" text-transform: uppercase">
+                     
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" role="switch" id="incEsEquipoPatrimonizado" >
+                          <label class="form-check-label" for="incEsEquipoPatrimonizado">¿Equipo Patrimonizado?</label>
+                        </div>
+
+
+                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-1 card card-body"
+                          id="div_incBuscarEquipoPatrimonizado" >
+                      <div class="row g-3 d-flex align-items-center">
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <input type="text" 
+                                   class="form-control form-control-sm" id="inc_codPatrimonial"
+                                   name="inc_codPatrimonial"
+                                   placeholder="codigo patrimonial" 
+                                   style=" text-transform: uppercase">
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                             <button class="btn btn-sm btn-primary" 
+                                     onclick="buscarEquipo()">
+                                 Consultar
+                             </button>
+                        </div>
+                        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5"   id="inc_textEstado">
                        </div>
-                     <button class="btn btn-primary  mt-3" onclick="buscarEquipo()">
-                         Consultar
-                     </button>
-  
-                      <div class="mb-3">
-                         <label for="result" class="form-label">Repuesta</label>
-                         <div id="inc_equipoEncontrado">
-                          
-                         </div>
+                      </div>
                      </div>
-                    
+
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 card card-body mt-1">  
+                       <div>Información del Equipo</div>
+                         <div id="inc_equipoEncontrado">
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text" >Cod Patrimonial:</span>
+                                <input type="text" 
+                                       class="form-control disabled-input" 
+                                       id="inc_equipoCodPatrimonial"
+                                       disabled = true>
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Tipo Equipo:</span>
+                                <input type="text"
+                                       class="form-control" 
+                                       placeholder="ingresar tipo de equipo"
+                                       id="inc_equipoTipo">
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Marca:</span>
+                                <input type="text" 
+                                       class="form-control" 
+                                       placeholder="ingresar marca"
+                                       id="inc_equipoMarca">
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Modelo:</span>
+                                <input type="text" 
+                                       class="form-control" 
+                                       placeholder="ingresar modelo"
+                                       id="inc_equipoModelo">
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Nro Serie:</span>
+                                <input type="text" 
+                                       class="form-control"  
+                                       placeholder="ingresar nro. serie"
+                                       id="inc_equipoSerie">
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Color:</span>
+                                <input type="text" 
+                                       class="form-control" 
+                                       placeholder="ingresar color"
+                                       id="inc_equipoColor">
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">FechaPecosa:</span>
+                                <input type="text" 
+                                       class="form-control disabled-input"
+                                       id="inc_equipoFechaPecosa"
+                                       disabled = true>
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Estado:</span>
+                                <input type="text" 
+                                       class="form-control disabled-input" 
+                                       id="inc_equipoEstado"
+                                       disabled=true>
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Observacion:</span>
+                                <input type="text" 
+                                       class="form-control" 
+                                       placeholder="ingresar observacion"
+                                       id="inc_equipoObservacion">
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Tipo Doc:</span>
+                                <input type="text" 
+                                       class="form-control disabled-input" 
+                                       id="inc_equipoTipoDoc"
+                                       disabled=true>
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Nro Doc:</span>
+                                <input type="text" 
+                                       class="form-control disabled-input"
+                                       id="inc_equipoNroDoc"
+                                       disabled=true>
+                              </div>
+                              <div class="input-group  input-group-sm mb-1">
+                                <span class="input-group-text">Nro SIAF:</span>
+                                <input type="text" 
+                                       class="form-control disabled-input"
+                                       id="inc_equipoSiaf"
+                                       disabled=true>
+                              </div>
+
+                         </div>
+                    </div>
                 </div>
               </div>
             </div>

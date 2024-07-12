@@ -21,12 +21,18 @@ function setDisplayNone(elementId) // void
     qs('#' + elementId).style.display = 'none';
 }
 
-function showContent() // OCULTAR O MOSTRAR DIV CON UN CHECKBOX
-{
-        const checkboxId = 'incSolicTieneDoc';
-        const divId = 'div_incSolicDoc';
+// OCULTAR O MOSTRAR DIV CON UN CHECKBOX
+function showDiv_checkbox(idCheckBox,idDiv){
+        const checkboxId = idCheckBox;
+        const divId = idDiv;
 
         const checkboxNode = qs('#' + checkboxId);
+        if (checkboxNode.checked) {
+            setDisplayBlock(divId);
+        } else {
+            setDisplayNone(divId);
+        }
+
         checkboxNode.addEventListener('click', function () // void
         {
             if (checkboxNode.checked) {
@@ -35,8 +41,42 @@ function showContent() // OCULTAR O MOSTRAR DIV CON UN CHECKBOX
                 setDisplayNone(divId);
             }
         });
-
 }
+// cambiar el placeHolder de un input cuando cambiar de valor un checkBox
+function changePlaceHolderInput_checkbox(idInput,idCheckBox){
+    const inputId = idInput;
+    const checkboxId = idCheckBox;
+
+    const checkboxNode = qs('#' + checkboxId);
+    qs('#' + inputId).value = "";
+
+    if (checkboxNode.checked) {
+         qs('#' + inputId).placeholder = 'cod. Patrimonial';
+    } else {
+        qs('#' + inputId).placeholder = 'nro. serie';
+    }
+
+    checkboxNode.addEventListener('click', function () // void
+    {
+        qs('#' + inputId).value = "";
+        if (checkboxNode.checked) {
+            qs('#' + inputId).placeholder = 'cod. Patrimonial';
+        } else {
+            qs('#' + inputId).placeholder = 'nro. serie';
+        }
+    });
+}
+
+////////////////////////////////////////////////////////////////
+
+// const checkboxesTotal = qsa('input[type="checkbox"]').length;
+//showContent();
+document.addEventListener('DOMContentLoaded', (event) => {
+    showDiv_checkbox('incSolicTieneDoc','div_incSolicDoc');
+    changePlaceHolderInput_checkbox('inc_codPatrimonial','incEsEquipoPatrimonizado');
+});
+
+////////////////////////////////////////////////////////////////
 
 ///para cargar equipos y dataTable
 let dataTable;
@@ -86,41 +126,50 @@ const listEquipos = async () => {
 
 window.addEventListener("load",async () => {
     await initDatataTable();
+    document.getElementById('incSolicTieneDoc').addEventListener('change', function() {
+        showContent('incSolicTieneDoc','div_incSolicDoc')
+    });
 });
 
-////////////////////////////////////////////////////////////////
 
-// const checkboxesTotal = qsa('input[type="checkbox"]').length;
-showContent();
-
-////////////////////////////////////////////////////////////////
 // CARGAR EQUIPO EN CONSULTA
 const buscarEquipo = async () =>{
     try{
-        codPatrimonial =  $("#inc_codPatrimonial").val();
-        const response = await fetch("http://127.0.0.1:4200/task/search_equipo/"+codPatrimonial+'/');
-        const data = await response.json();
-        console.log(data);
+        const esPatrimonizado = qs('#' + 'incEsEquipoPatrimonizado');
+        if (esPatrimonizado.checked) {
+                codPatrimonial =  $("#inc_codPatrimonial").val();
+                // buscar en base interna
+                //buscar en base externa
+                const response = await fetch("http://127.0.0.1:4200/task/search_equipo/"+codPatrimonial+'/');
+                const data = await response.json();
+                console.log(data);
+        
+                let content = `<p class="text-start text-break fs-6 fw-normal" 
+                                id="inc_textEstado">
+                                Buscando en BD Externa
+                              </p>`; 
+                inc_textEstado.innerHTML = content; 
 
-        let content = ``; 
-        let tipo = data.tipo[0]['tipoEquipoExt']
-      data.equipos.forEach((equipo,index) => {
-            content += `
-                           <div>Cod Patrimonial: ${equipo.codInterno}</div>
-                           <div>Tipo Equipo: ${tipo}</div>
-                           <div>Marca: ${equipo.marca}</div>
-                           <div>Modelo: ${equipo.modelo}</div>
-                           <div>Nro Serie: ${equipo.nroSerie}</div>
-                           <div>Color: ${equipo.color}</div>
-                           <div>FechaPecosa: ${equipo.fechaPecosa}</div>
-                           <div>Estado: ${equipo.estado}</div>
-                           <div>Observacion: ${equipo.descOtros}</div>
-                           <div>Tipo Doc: ${equipo.tipoDocAdq}</div>
-                           <div>Nro Doc: ${equipo.docAdq}</div>
-                           <div>Nro SIAF:${equipo.siaf}</div>
-            `
-      });
-        inc_equipoEncontrado.innerHTML = content;
+                let tipo = data.tipo[0]['tipoEquipoExt']
+                data.equipos.forEach((equipo,index) => {
+                        inc_equipoCodPatrimonial.value = equipo.codInterno;
+                        inc_equipoTipo.value = tipo;
+                        inc_equipoMarca.value = equipo.marca;
+                        inc_equipoModelo.value = equipo.modelo; 
+                        inc_equipoSerie.value = equipo.nroSerie;
+                        inc_equipoColor.value = equipo.color;
+                        inc_equipoFechaPecosa.value = equipo.fechaPecosa;
+                        inc_equipoEstado.value = equipo.estado;
+                        inc_equipoObservacion.value = equipo.descOtros;
+                        inc_equipoTipoDoc.value = equipo.tipoDocAdq;
+                        inc_equipoNroDoc.value = equipo.docAdq;
+                        inc_equipoSiaf.value = equipo.siaf;
+                });
+                
+        } else {
+           // setDisplayNone(divId);
+        }
+
     }catch (ex){
         alert(ex);
     }

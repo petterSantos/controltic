@@ -2,3 +2,10 @@
     text-align: center !important;
     vertical-align: middle !important;
 }
+
+.disabled-input {
+    background-color: #e9ecef;
+    color: #6c757d;
+    border-color: #ced4da;
+    cursor: not-allowed;
+}
