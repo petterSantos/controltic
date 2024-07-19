@@ -45,5 +45,4 @@ class TipoEquipoForm(forms.ModelForm):
 class EquipoForm(forms.ModelForm):    
     class Meta:
         model = Equipo
-        fields = [ 'marca','modelo','codPatrimonial','descripcionEquipo','descripcionCompra','estadoPatrimonio','responsablePatri',
-                    'oficinaPatri','fechaUpdate','tipoEquipo','esPatrimonizado']
+        fields = [ 'marca','modelo','codPatrimonial','descripcionEquipo','estado','responsablePatri',                    'oficinaPatri','fechaUpdate','tipoEquipo','esPatrimonizado']

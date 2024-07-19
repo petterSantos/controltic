@@ -36,14 +36,20 @@ class TipoEquipo(models.Model):
         return self.tipo
 
 class Equipo(models.Model):
-    marca = models.CharField(max_length=50)
-    modelo = models.CharField(max_length=50)
-    codPatrimonial = models.CharField(max_length=20)
+    codPatrimonial = models.CharField(max_length=20,blank=True)
+    codInterno = models.CharField(max_length=20,blank=True)
+    marca = models.CharField(max_length=50, blank=True)
+    modelo = models.CharField(max_length=50, blank=True)
+    nroSerie = models.CharField(max_length=25, blank=True)
+    color = models.CharField(max_length=20, blank=True)
+    fechaPecosa = models.DateField(null=True)
+    estado = models.CharField(max_length=1)
+    tipoDocAdq = models.CharField(max_length=15, blank=True)
+    nroDocAdq = models.CharField(max_length=50, blank=True)
+    regSiaf = models.CharField(max_length=10, blank=True)
     descripcionEquipo =  models.TextField(blank=True)
-    descripcionCompra =  models.TextField(blank=True)
-    estadoPatrimonio = models.CharField(max_length=1) # M R B
-    responsablePatri = models.CharField(max_length=100)
-    oficinaPatri = models.CharField(max_length=100)
+    responsablePatri = models.CharField(max_length=100, blank=True)
+    oficinaPatri = models.CharField(max_length=150,blank= True)
     fechaUpdate = models.DateTimeField(null=True)
     tipoEquipo = models.ForeignKey(TipoEquipo,on_delete=models.CASCADE)
     esPatrimonizado = models.BooleanField(default=False)

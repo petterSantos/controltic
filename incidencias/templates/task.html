@@ -118,6 +118,12 @@
      </div>
 
           <!-- Modal -->
+          {% load static %}
+          <div id="static-urls" style="display: none;">
+            <span id="deleteImageUrl">{% static 'image/delete02.svg' %}</span>
+            <span id="checkImageUrl">{% static 'image/check01.svg' %}</span>
+          </div>
+
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -156,7 +162,9 @@
                                  Consultar
                              </button>
                         </div>
-                        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5"   id="inc_textEstado">
+                        
+                        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5"      id="div_inc_textEstado">
+
                        </div>
                       </div>
                      </div>

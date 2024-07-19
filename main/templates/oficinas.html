@@ -52,7 +52,7 @@
                                     {% else %}   
                                         <td>{{oficina.oficina}}</td>
                                         <td>{{oficina.abrev}}</td>
-                                        {% load static %}
+                                     
                                         <td class="text-center"><a href= "{% url 'oficina_detail' oficina.id %}" style='color: black'><img src="{% static 'image/edit02.svg' %}" alt="modificar" title="modificar oficina"  width="25" height="25"></a>
                                             <a onclick="preguntarEliminacion('Oficina','/oficina/{{oficina.id}}/delete')" style='color: black;cursor:pointer'><img src="{% static 'image/delete01.svg' %}" alt="eliminar" title="eliminar oficina" width="25" height="25"></a></td>
                                     {% endif %}
