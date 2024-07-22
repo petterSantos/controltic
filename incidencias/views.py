@@ -35,23 +35,30 @@ def search_equipo(request,codPatrimonial_id):
     equipos = list(ModelEquipo.objects.filter(codInterno= codPatrimonial_id).values())
     if equipos[0]['codTipoBien']:
         codEquipo = equipos[0]['idEquipo']
+        print(codEquipo)
         #buscando tipo
         tipo = list(ModelTipoEquipo.objects.filter(idTipoEquipo= equipos[0]['codTipoBien']).values())
         if tipo:
-            tipoSend = tipo[0]['tipo']
-        #buscando oficina y responsable
-        inventarios = list(ModelInventario.objects.filter(idInventario = codEquipo).values())
-        print(inventarios)
-        data = {'equipos' : equipos,
-            'tipoSend' : tipo,
-            'inventarios' : inventarios
-            }
+            tipoSend = tipo[0]['tipoEquipoExt']
+            print(tipoSend)
+            #buscando oficina y responsable
+            inventarios = ModelInventario.objects.filter(codBien=codEquipo).order_by('-idInventario').select_related('oficina')
+            if inventarios:
+                print(inventarios)
+                oficina = inventarios[0].oficina.nameOficina
+                persona = inventarios[0].persona.nombres+', '+inventarios[0].persona.apellidos
+                print(persona)
+                #oficina = list(ModelOficina.objects.filter(idOficina = inventarios[0]['']).order_by('-idInventario').values())
+                data = {'equipos' : equipos,
+                'tipo' : tipoSend,
+                'oficina' : oficina,
+                'persona' : persona
+                }
         return JsonResponse(data)
     else:
         print('no se enontro bien')
-
         data = {'equipos' : 'equipos',
-            'tipoSend' : 'tipo',
+            'tipo' : 'tipo',
             'inventarios' : 'inventarios'
             }
         return JsonResponse(data)

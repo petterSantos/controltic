@@ -166,6 +166,8 @@ const buscarEquipo = async () =>{
         const esPatrimonizado = qs('#' + 'incEsEquipoPatrimonizado');
         codPatrimonial =  $("#inc_codPatrimonial").val();
         console.log('codpatrimonial: '+codPatrimonial);
+        let content = ``;
+        //es patrimonizado
         if (esPatrimonizado.checked) {
                 try{
                     console.log('entrnado interno, kkegue hasta aca');
@@ -173,11 +175,47 @@ const buscarEquipo = async () =>{
                     const responseInterno = await fetch("http://127.0.0.1:4200/task/search_equipoInterno/"+codPatrimonial+'/');
 
                     if(!responseInterno.ok){
-                        throw new Error('Error en la solicitud: ' + responseInterno.status);
-                    }
-                   else {}
+                  //      throw new Error('Error en la solicitud: ' + responseInterno.status);
 
-                    if (dataInterno.equipos.length > 0) {
+                        //intentando en base externa
+                        const response = await fetch("http://127.0.0.1:4200/task/search_equipo/"+codPatrimonial+'/');
+    console.log('llegue hasta aca base externa');
+                       //no se encontro en BD externa
+                        if(!response.ok){
+                            console.log('llegue hasta aca base externa, NO SE ESTABLECIO CONEXION');
+                            content = `
+                            <p class="text-start text-break fs-6 fw-normal">
+                              <img src="${deleteImageUrl}" alt="rechazado" title="no se extablecio conexion con la BD" width="20" height="20">  Buscando en BD Externa
+                             </p>
+                            `
+                        }
+                        //si se econtro en BD externa
+                        else {
+                            console.log('llegue hasta aca, se encontro en base externa');
+                            const data = await response.json();
+                            
+                            if (data.equipos.length > 0) {
+                                colocarDatosEquipos(data.tipo,data.equipos,'externo');
+                                content = `
+                             <p class="text-start text-break fs-6 fw-normal">
+                              <img src="${checkImageUrl}" alt="encontrado" title="encontrado" width="20" height="20">  Buscando en BD Externa
+                             </p>
+                             `; 
+                            }
+                            else {
+                            content = `
+                            <p class="text-start text-break fs-6 fw-normal">
+                              <img src="${deleteImageUrl}" alt="rechazado" title="no encontrado" width="20" height="20">NO SE  ENCONTRO en BD Externa
+                             </p>
+                           `;  
+                            }
+                        }
+                        
+                    }
+                    //se ecnontro en BD interna
+                   else {
+                    const dataInterno = await response.json();
+                     if (dataInterno.equipos.length > 0) {
                         const dataInterno = await responseInterno.json();
                         let content = ``; 
                         colocarDatosEquipos(dataInterno.tipo,dataInterno.equipos,'interno');
@@ -188,33 +226,7 @@ const buscarEquipo = async () =>{
                          </p>
                        `; 
                      }
-                     // es patrimonizado pero no esta en BD interno => buscar en BD externa
-                    else {
-                        const response = await fetch("http://127.0.0.1:4200/task/search_equipo/"+codPatrimonial+'/');
-console.log('kkegue hasta aca');
-                        if(!response.ok){
-                            throw new Error('Error en la solicitud: ' + response.status);
-                        }
-                        const data = await response.json();
-                        let content = ``; 
-
-                        if (data.equipos.length > 0) {
-                            colocarDatosEquipos(data.tipo,dataInterno.equipos,'interno');
-                            content = `
-                         <p class="text-start text-break fs-6 fw-normal">
-                          <img src="${checkImageUrl}" alt="encontrado" title="encontrado" width="20" height="20">  Buscando en BD Externa
-                         </p>
-                       `; 
-                        }
-                        else {
-                        content = `
-                        <p class="text-start text-break fs-6 fw-normal">
-                          <img src="${deleteImageUrl}" alt="rechazado" title="no encontrado" width="20" height="20">  Buscando en BD Externa
-                         </p>
-                       `;  
-                        }
-                       
-                     }
+                   }
 
                      div_inc_textEstado.innerHTML = content; 
 
@@ -222,7 +234,7 @@ console.log('kkegue hasta aca');
                     console.error('Hubo un problema con la operación fetch:', error);
                 }
                 
-                //SI NO ESTA PATRIMONIZADA
+        //SI NO ESTA PATRIMONIZADA
         } else {
             try{
                 // buscar en base externa

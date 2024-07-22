@@ -58,14 +58,14 @@ class ModelPersona(ExternalModel):
 
 class ModelInventario(ExternalModel):
     idInventario = models.TextField(db_column='indl_id', blank=True, primary_key= True)
-    codOficina = models.TextField(db_column=' indl_codOficina',blank=True)
+    codOficina = models.TextField(db_column='indl_codOficina',blank=True)
     codPersona = models.TextField(db_column='indl_codPersonal', blank=True)
     codBien = models.TextField(db_column='indl_codBien', blank=True)
-    oficina = models.ForeignKey(ModelOficina,on_delete=models.CASCADE)
-    persona = models.ForeignKey(ModelPersona,on_delete=models.CASCADE)
-    bien = models.ForeignKey(ModelEquipo,on_delete=models.CASCADE)
+    oficina = models.ForeignKey(ModelOficina,on_delete=models.CASCADE, db_column='indl_codOficina')
+    persona = models.ForeignKey(ModelPersona,on_delete=models.CASCADE,db_column='indl_codPersonal')
+    bien = models.ForeignKey(ModelEquipo,on_delete=models.CASCADE,db_column='indl_codBien')
 
     def __str__(self):
-        return self.idInventario+' - Persona: '+self.codPersona+' '+self.codBien
+        return 'Persona: '+self.codPersona+' '+self.codBien
     class Meta(ExternalModel.Meta):
         db_table = 'Tb_InvDll'
